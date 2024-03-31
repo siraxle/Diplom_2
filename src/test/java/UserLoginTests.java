@@ -1,13 +1,11 @@
 import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.restassured.response.Response;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.*;
 
-
-@Epic("User Management")
-@Feature("User Creation")
+@Feature("User Login")
 public class UserLoginTests extends BaseTest {
     private static final UserHelper USER_HELPER = new UserHelper();
 
@@ -18,7 +16,7 @@ public class UserLoginTests extends BaseTest {
         String password = USER_HELPER.generatePassword();
         String name = USER_HELPER.generateName();
         User user = new User(email, password, name);
-        USER_HELPER.createUser(user);
+        Response creatingUserResponse = USER_HELPER.createUser(user);
 
         USER_HELPER.loginUser(email, password)
                 .then()
@@ -27,7 +25,7 @@ public class UserLoginTests extends BaseTest {
                 .body("accessToken", not(emptyString()))
                 .body("refreshToken", not(emptyString()));
 
-//      TODO USER_HELPER.deleteCourier(loginResponse.getId());
+        USER_HELPER.deleteUser(creatingUserResponse);
 
     }
 
@@ -38,7 +36,7 @@ public class UserLoginTests extends BaseTest {
         String password = USER_HELPER.generatePassword();
         String name = USER_HELPER.generateName();
         User user = new User(email, password, name);
-        USER_HELPER.createUser(user);
+        Response creatingUserResponse = USER_HELPER.createUser(user);
 
         USER_HELPER.loginUser(email, password + "w")
                 .then()
@@ -46,7 +44,7 @@ public class UserLoginTests extends BaseTest {
                 .body("success", is(false))
                 .body("message", equalTo("email or password are incorrect"));
 
-//      TODO USER_HELPER.deleteCourier(loginResponse.getId());
+        USER_HELPER.deleteUser(creatingUserResponse);
 
     }
 
