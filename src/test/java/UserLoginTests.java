@@ -37,8 +37,9 @@ public class UserLoginTests extends BaseTest {
         String name = USER_HELPER.generateName();
         User user = new User(email, password, name);
         Response creatingUserResponse = USER_HELPER.createUser(user);
+        String incorrectPassword = USER_HELPER.generatePassword();
 
-        USER_HELPER.loginUser(email, password + "w")
+        USER_HELPER.loginUser(email, incorrectPassword)
                 .then()
                 .statusCode(401)
                 .body("success", is(false))

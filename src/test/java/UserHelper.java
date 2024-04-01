@@ -1,4 +1,5 @@
 import io.qameta.allure.Step;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
 import java.util.HashMap;
@@ -6,7 +7,6 @@ import java.util.Map;
 import java.util.Random;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
 
 public class UserHelper {
     private static final String BASE_URL = BaseTest.BASE_URL;
@@ -14,7 +14,6 @@ public class UserHelper {
     private static final String USER_LOGIN_URN = "/auth/login";
 
     private static final String USER_URN = "/auth/user";
-
 
 
     @Step("Generate Unique Email")
@@ -27,7 +26,7 @@ public class UserHelper {
     @Step("Generate Password")
     public String generatePassword() {
         Random random = new Random();
-        return String.valueOf(1000 + random.nextInt(9000)) + "password";
+        return 1000 + random.nextInt(9000) + "password";
     }
 
     @Step("Generate First Name")
@@ -55,8 +54,9 @@ public class UserHelper {
                 .when()
                 .post(BASE_URL + USER_LOGIN_URN);
     }
+
     @Step("Getting User Access Token")
-    private String getUserAccessToken(Response response) {
+    public String getUserAccessToken(Response response) {
         return response.then()
                 .statusCode(200)
                 .extract()
@@ -67,16 +67,38 @@ public class UserHelper {
     public void deleteUser(Response response) {
         // Получаем авторизационный токен
         String accessToken = getUserAccessToken(response);
-
         // Отправляем запрос на удаление пользователя
         given()
                 .contentType("application/json")
-//                .header("authorization", "Bearer " + accessToken)
                 .header("authorization", accessToken)
                 .when()
-                .delete(BASE_URL+ USER_URN)
+                .delete(BASE_URL + USER_URN)
                 .then()
                 .statusCode(202);
+    }
+
+    @Step("Updating User Name")
+    public Response updateUserName(String accessToken, String name) {
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("name", name);
+        return given()
+                .contentType(ContentType.JSON)
+                .header("authorization", accessToken)
+                .body(requestBody)
+                .when()
+                .patch(BASE_URL + USER_URN);
+    }
+
+    @Step("Updating User Login")
+    public Response updateUserEmail(String accessToken, String email) {
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("email", email);
+        return given()
+                .contentType(ContentType.JSON)
+                .header("authorization", accessToken)
+                .body(requestBody)
+                .when()
+                .patch(BASE_URL + USER_URN);
     }
 
 }

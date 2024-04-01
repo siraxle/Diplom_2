@@ -3,9 +3,6 @@ import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.junit.Test;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.*;
 
 
@@ -39,16 +36,16 @@ public class UserCreationTests extends BaseTest {
         String password = USER_HELPER.generatePassword();
         String name = USER_HELPER.generateName();
         User user = new User(email, password, name);
-        USER_HELPER.createUser(user);
-        Response response = USER_HELPER.createUser(user);
+        Response responseCreateUser_1 = USER_HELPER.createUser(user);
+        Response responseCreateUser_2 = USER_HELPER.createUser(user);
 
-        response
+        responseCreateUser_2
                 .then()
                 .statusCode(403)
                 .body("success", is(false))
                 .body("message", equalTo("User already exists"));
 
-        USER_HELPER.deleteUser(response);
+        USER_HELPER.deleteUser(responseCreateUser_1);
     }
 
     @Test
