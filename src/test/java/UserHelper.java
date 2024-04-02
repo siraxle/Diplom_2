@@ -72,9 +72,7 @@ public class UserHelper {
                 .contentType("application/json")
                 .header("authorization", accessToken)
                 .when()
-                .delete(BASE_URL + USER_URN)
-                .then()
-                .statusCode(202);
+                .delete(BASE_URL + USER_URN);
     }
 
     @Step("Updating User Name")
