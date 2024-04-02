@@ -1,18 +1,17 @@
 import io.qameta.allure.Description;
-import io.qameta.allure.Feature;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.*;
 
-@Feature("User Login")
+@DisplayName("User Login Tests")
 public class UserLoginTests extends BaseTest {
     private static final UserHelper USER_HELPER = new UserHelper();
 
     @Test
     @Description("Test successful user login")
-    @DisplayName("successful user login")
+    @DisplayName("Successful user login")
     public void testSuccessfulLogin() {
         String email = USER_HELPER.generateUniqueEmail();
         String password = USER_HELPER.generatePassword();

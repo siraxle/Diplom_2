@@ -1,5 +1,4 @@
 import io.qameta.allure.Description;
-import io.qameta.allure.Feature;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.Test;
@@ -7,7 +6,7 @@ import org.junit.Test;
 import static org.hamcrest.Matchers.*;
 
 
-@Feature("User Creation")
+@DisplayName("User Creation Tests")
 public class UserCreationTests extends BaseTest {
     private static final UserHelper USER_HELPER = new UserHelper();
 

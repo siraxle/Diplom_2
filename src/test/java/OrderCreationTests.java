@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
-
+@DisplayName("Order Creation Tests")
 public class OrderCreationTests extends BaseTest {
 
     private static final UserHelper USER_HELPER = new UserHelper();

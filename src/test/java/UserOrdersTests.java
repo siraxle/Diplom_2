@@ -1,5 +1,4 @@
 import io.qameta.allure.Description;
-import io.qameta.allure.Feature;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.Assert;
@@ -11,7 +10,7 @@ import java.util.List;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-@Feature("User Orders")
+@DisplayName("User Orders Tests")
 public class UserOrdersTests extends BaseTest {
 
     private static final UserHelper USER_HELPER = new UserHelper();

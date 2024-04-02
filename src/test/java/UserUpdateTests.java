@@ -1,18 +1,19 @@
 import io.qameta.allure.Description;
-import io.qameta.allure.Feature;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 
-@Feature("User Update")
+@DisplayName("User Update Tests")
 public class UserUpdateTests extends BaseTest{
 
     private static final UserHelper USER_HELPER = new UserHelper();
 
     @Test
     @Description("Test update user name with authorization")
+    @DisplayName("Update user name with authorization")
     public void testUpdateUserNameWithAuthorization() {
         String email = USER_HELPER.generateUniqueEmail();
         String password = USER_HELPER.generatePassword();
@@ -32,6 +33,7 @@ public class UserUpdateTests extends BaseTest{
 
     @Test
     @Description("Test update user email with authorization")
+    @DisplayName("Update user email with authorization")
     public void testUpdateUserLoginWithAuthorization() {
         String email = USER_HELPER.generateUniqueEmail();
         String password = USER_HELPER.generatePassword();
@@ -52,6 +54,7 @@ public class UserUpdateTests extends BaseTest{
 
     @Test
     @Description("Test user name update without authorization")
+    @DisplayName("Update user name without authorization")
     public void testUserNameUpdateWithoutAuthorization() {
         String email = USER_HELPER.generateUniqueEmail();
         String password = USER_HELPER.generatePassword();
@@ -69,6 +72,7 @@ public class UserUpdateTests extends BaseTest{
 
     @Test
     @Description("Test user deletion without authorization")
+    @DisplayName("Delete user without authorization")
     public void testUserEmailUpdateWithoutAuthorization() {
         String email = USER_HELPER.generateUniqueEmail();
         String password = USER_HELPER.generatePassword();
