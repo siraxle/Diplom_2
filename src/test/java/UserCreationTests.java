@@ -1,5 +1,6 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.Test;
 
@@ -12,6 +13,7 @@ public class UserCreationTests extends BaseTest {
 
     @Test
     @Description("Create a unique user")
+    @DisplayName("Create user")
     public void testCreateUniqueUser() {
         String email = USER_HELPER.generateUniqueEmail();
         String password = USER_HELPER.generatePassword();
@@ -31,6 +33,7 @@ public class UserCreationTests extends BaseTest {
 
     @Test
     @Description("Create a user who is already registered")
+    @DisplayName("Creation Existing User")
     public void testCreateAlreadyRegisteredUser() {
         String email = USER_HELPER.generateUniqueEmail();
         String password = USER_HELPER.generatePassword();
@@ -50,6 +53,7 @@ public class UserCreationTests extends BaseTest {
 
     @Test
     @Description("Create a user without filling in one of the required fields")
+    @DisplayName("User creation without filling in a required field")
     public void testCreateUserMissingField() {
         String email = USER_HELPER.generateUniqueEmail();
         String password = USER_HELPER.generatePassword();

@@ -1,4 +1,5 @@
 import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.Test;
 
@@ -14,6 +15,7 @@ public class OrderCreationTests extends BaseTest {
 
     @Test
     @Description("Test order creation with ingredients and authorization")
+    @DisplayName("Order creation with ingredients, with auth")
     public void testCreateOrderWithIngredientsAndAuthorization() {
         String email = USER_HELPER.generateUniqueEmail();
         String password = USER_HELPER.generatePassword();
@@ -41,6 +43,7 @@ public class OrderCreationTests extends BaseTest {
 
     @Test
     @Description("Test order creation with ingredients and without authorization")
+    @DisplayName("Order creation with ingredients, without auth")
     public void testCreateOrderWithIngredientsAndWithoutAuthorization() {
         // Определяем ингредиенты для заказа
         List<String> ingredients = new ArrayList<>();
@@ -58,6 +61,7 @@ public class OrderCreationTests extends BaseTest {
 
     @Test
     @Description("Test order creation without ingredients and with authorization")
+    @DisplayName("Order creation without ingredients, with auth")
     public void testCreateOrderWithoutIngredientsAndWithAuthorization() {
         String email = USER_HELPER.generateUniqueEmail();
         String password = USER_HELPER.generatePassword();
@@ -82,6 +86,7 @@ public class OrderCreationTests extends BaseTest {
 
     @Test
     @Description("Test order creation without ingredients and without authorization")
+    @DisplayName("Order creation without ingredients, no auth")
     public void testCreateOrderWithoutIngredientsAndWithoutAuthorization() {
 //      Определяем ингредиенты для заказа
         List<String> ingredients = new ArrayList<>();
@@ -96,6 +101,7 @@ public class OrderCreationTests extends BaseTest {
 
     @Test
     @Description("Test order creation with wrong cash ingredients and without authorization")
+    @DisplayName("Order creation with invalid ingredients, no auth")
     public void testCreateOrderWithWrongIngredientsAndWithoutAuthorization() {
         // Определяем ингредиенты для заказа - неверные хеши
         List<String> ingredients = new ArrayList<>();
@@ -112,6 +118,7 @@ public class OrderCreationTests extends BaseTest {
 
     @Test
     @Description("Test order creation with wrong cash ingredients and authorization")
+    @DisplayName("Order creation with wrong ingredients and auth")
     public void testCreateOrderWithWrongIngredientsAndAuthorization() {
         String email = USER_HELPER.generateUniqueEmail();
         String password = USER_HELPER.generatePassword();

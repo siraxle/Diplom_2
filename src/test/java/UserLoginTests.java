@@ -1,5 +1,6 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.Test;
 
@@ -11,6 +12,7 @@ public class UserLoginTests extends BaseTest {
 
     @Test
     @Description("Test successful user login")
+    @DisplayName("successful user login")
     public void testSuccessfulLogin() {
         String email = USER_HELPER.generateUniqueEmail();
         String password = USER_HELPER.generatePassword();
@@ -31,6 +33,7 @@ public class UserLoginTests extends BaseTest {
 
     @Test
     @Description("Test user login with incorrect credentials")
+    @DisplayName("User login with incorrect credentials")
     public void testLoginWithIncorrectCredentials() {
         String email = USER_HELPER.generateUniqueEmail();
         String password = USER_HELPER.generatePassword();

@@ -1,10 +1,12 @@
 import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 
+@Feature("User Update")
 public class UserUpdateTests extends BaseTest{
 
     private static final UserHelper USER_HELPER = new UserHelper();
