@@ -20,12 +20,9 @@ public class UserOrdersTests extends BaseTest {
     @Description("Test getting orders for an authorized user")
     @DisplayName("Getting orders for an authorized user")
     public void testGetOrdersForAuthorizedUser() {
-        String email = USER_HELPER.generateUniqueEmail();
-        String password = USER_HELPER.generatePassword();
-        String name = USER_HELPER.generateName();
-        User user = new User(email, password, name);
+        User user = USER_HELPER.createUserObject();
         Response responseCreateUser = USER_HELPER.createUser(user);
-        Response loginResponse = USER_HELPER.loginUser(email, password);
+        Response loginResponse = USER_HELPER.loginUser(user.getEmail(), user.getPassword());
         String accessToken = USER_HELPER.getUserAccessToken(loginResponse);
 
         // Определяем ингредиенты для заказа и создаем заказ

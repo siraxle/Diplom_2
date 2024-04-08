@@ -15,12 +15,9 @@ public class UserUpdateTests extends BaseTest{
     @Description("Test update user name with authorization")
     @DisplayName("Update user name with authorization")
     public void testUpdateUserNameWithAuthorization() {
-        String email = USER_HELPER.generateUniqueEmail();
-        String password = USER_HELPER.generatePassword();
-        String name = USER_HELPER.generateName();
-        User user = new User(email, password, name);
+        User user = USER_HELPER.createUserObject();
         Response responseCreateUser = USER_HELPER.createUser(user);
-        Response loginResponse = USER_HELPER.loginUser(email, password);
+        Response loginResponse = USER_HELPER.loginUser(user.getEmail(), user.getPassword());
         String accessToken = USER_HELPER.getUserAccessToken(loginResponse);
 
         USER_HELPER.updateUserName(accessToken, "newName")
@@ -35,12 +32,9 @@ public class UserUpdateTests extends BaseTest{
     @Description("Test update user email with authorization")
     @DisplayName("Update user email with authorization")
     public void testUpdateUserLoginWithAuthorization() {
-        String email = USER_HELPER.generateUniqueEmail();
-        String password = USER_HELPER.generatePassword();
-        String name = USER_HELPER.generateName();
-        User user = new User(email, password, name);
+        User user = USER_HELPER.createUserObject();
         Response responseCreateUser = USER_HELPER.createUser(user);
-        Response loginResponse = USER_HELPER.loginUser(email, password);
+        Response loginResponse = USER_HELPER.loginUser(user.getEmail(), user.getPassword());
         String accessToken = USER_HELPER.getUserAccessToken(loginResponse);
 
         USER_HELPER.updateUserEmail(accessToken, "newe@email.ru")
@@ -56,10 +50,7 @@ public class UserUpdateTests extends BaseTest{
     @Description("Test user name update without authorization")
     @DisplayName("Update user name without authorization")
     public void testUserNameUpdateWithoutAuthorization() {
-        String email = USER_HELPER.generateUniqueEmail();
-        String password = USER_HELPER.generatePassword();
-        String name = USER_HELPER.generateName();
-        User user = new User(email, password, name);
+        User user = USER_HELPER.createUserObject();
         Response responseCreateUser = USER_HELPER.createUser(user);
 
         USER_HELPER.updateUserName("accessToken", "name")
@@ -74,10 +65,7 @@ public class UserUpdateTests extends BaseTest{
     @Description("Test user deletion without authorization")
     @DisplayName("Delete user without authorization")
     public void testUserEmailUpdateWithoutAuthorization() {
-        String email = USER_HELPER.generateUniqueEmail();
-        String password = USER_HELPER.generatePassword();
-        String name = USER_HELPER.generateName();
-        User user = new User(email, password, name);
+        User user = USER_HELPER.createUserObject();
         Response responseCreateUser = USER_HELPER.createUser(user);
 
         USER_HELPER.updateUserEmail("accessToken", "newe@email.ru")

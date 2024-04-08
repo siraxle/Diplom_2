@@ -14,16 +14,13 @@ public class UserCreationTests extends BaseTest {
     @Description("Create a unique user")
     @DisplayName("Create user")
     public void testCreateUniqueUser() {
-        String email = USER_HELPER.generateUniqueEmail();
-        String password = USER_HELPER.generatePassword();
-        String name = USER_HELPER.generateName();
-        User user = new User(email, password, name);
+        User user = USER_HELPER.createUserObject();
         Response response = USER_HELPER.createUser(user);
         response.then()
                 .statusCode(200)
                 .body("success", is(true))
-                .body("user.email", equalTo(email))
-                .body("user.name", equalTo(name))
+                .body("user.email", equalTo(user.getEmail()))
+                .body("user.name", equalTo(user.getName()))
                 .body("accessToken", not(emptyString()))
                 .body("refreshToken", not(emptyString()));
         USER_HELPER.deleteUser(response);
@@ -34,10 +31,7 @@ public class UserCreationTests extends BaseTest {
     @Description("Create a user who is already registered")
     @DisplayName("Creation Existing User")
     public void testCreateAlreadyRegisteredUser() {
-        String email = USER_HELPER.generateUniqueEmail();
-        String password = USER_HELPER.generatePassword();
-        String name = USER_HELPER.generateName();
-        User user = new User(email, password, name);
+        User user = USER_HELPER.createUserObject();
         Response responseCreateUser_1 = USER_HELPER.createUser(user);
         Response responseCreateUser_2 = USER_HELPER.createUser(user);
 

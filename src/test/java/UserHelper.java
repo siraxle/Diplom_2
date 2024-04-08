@@ -99,4 +99,12 @@ public class UserHelper {
                 .patch(BASE_URL + USER_URN);
     }
 
+    @Step("Creating User Object")
+    public User createUserObject() {
+        String email = generateUniqueEmail();
+        String password = generatePassword();
+        String name = generateName();
+        return new User(email, password, name);
+    }
+
 }

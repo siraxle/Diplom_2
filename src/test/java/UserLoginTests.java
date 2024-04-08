@@ -13,13 +13,10 @@ public class UserLoginTests extends BaseTest {
     @Description("Test successful user login")
     @DisplayName("Successful user login")
     public void testSuccessfulLogin() {
-        String email = USER_HELPER.generateUniqueEmail();
-        String password = USER_HELPER.generatePassword();
-        String name = USER_HELPER.generateName();
-        User user = new User(email, password, name);
+        User user = USER_HELPER.createUserObject();
         Response creatingUserResponse = USER_HELPER.createUser(user);
 
-        USER_HELPER.loginUser(email, password)
+        USER_HELPER.loginUser(user.getEmail(), user.getPassword())
                 .then()
                 .statusCode(200)
                 .body("success", is(true))
@@ -34,14 +31,11 @@ public class UserLoginTests extends BaseTest {
     @Description("Test user login with incorrect credentials")
     @DisplayName("User login with incorrect credentials")
     public void testLoginWithIncorrectCredentials() {
-        String email = USER_HELPER.generateUniqueEmail();
-        String password = USER_HELPER.generatePassword();
-        String name = USER_HELPER.generateName();
-        User user = new User(email, password, name);
+        User user = USER_HELPER.createUserObject();
         Response creatingUserResponse = USER_HELPER.createUser(user);
         String incorrectPassword = USER_HELPER.generatePassword();
 
-        USER_HELPER.loginUser(email, incorrectPassword)
+        USER_HELPER.loginUser(user.getEmail(), incorrectPassword)
                 .then()
                 .statusCode(401)
                 .body("success", is(false))

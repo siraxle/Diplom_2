@@ -17,12 +17,9 @@ public class OrderCreationTests extends BaseTest {
     @Description("Test order creation with ingredients and authorization")
     @DisplayName("Order creation with ingredients, with auth")
     public void testCreateOrderWithIngredientsAndAuthorization() {
-        String email = USER_HELPER.generateUniqueEmail();
-        String password = USER_HELPER.generatePassword();
-        String name = USER_HELPER.generateName();
-        User user = new User(email, password, name);
+        User user = USER_HELPER.createUserObject();
         Response responseCreateUser = USER_HELPER.createUser(user);
-        Response loginResponse = USER_HELPER.loginUser(email, password);
+        Response loginResponse = USER_HELPER.loginUser(user.getEmail(), user.getPassword());
         String accessToken = USER_HELPER.getUserAccessToken(loginResponse);
 
         // Определяем ингредиенты для заказа
@@ -63,12 +60,9 @@ public class OrderCreationTests extends BaseTest {
     @Description("Test order creation without ingredients and with authorization")
     @DisplayName("Order creation without ingredients, with auth")
     public void testCreateOrderWithoutIngredientsAndWithAuthorization() {
-        String email = USER_HELPER.generateUniqueEmail();
-        String password = USER_HELPER.generatePassword();
-        String name = USER_HELPER.generateName();
-        User user = new User(email, password, name);
+        User user = USER_HELPER.createUserObject();
         Response responseCreateUser = USER_HELPER.createUser(user);
-        Response loginResponse = USER_HELPER.loginUser(email, password);
+        Response loginResponse = USER_HELPER.loginUser(user.getEmail(), user.getPassword());
         String accessToken = USER_HELPER.getUserAccessToken(loginResponse);
 
         // Определяем ингредиенты для заказа
@@ -110,7 +104,6 @@ public class OrderCreationTests extends BaseTest {
         // Отправляем запрос на создание заказа
         ORDER_HELPER.createOrder("accessToken", ingredients)
                 .then()
-//                .statusCode(500)
                 .statusCode(400)
                 .body("success", is(false))
                 .body("message", equalTo("One or more ids provided are incorrect"));
@@ -120,12 +113,9 @@ public class OrderCreationTests extends BaseTest {
     @Description("Test order creation with wrong cash ingredients and authorization")
     @DisplayName("Order creation with wrong ingredients and auth")
     public void testCreateOrderWithWrongIngredientsAndAuthorization() {
-        String email = USER_HELPER.generateUniqueEmail();
-        String password = USER_HELPER.generatePassword();
-        String name = USER_HELPER.generateName();
-        User user = new User(email, password, name);
+        User user = USER_HELPER.createUserObject();
         Response responseCreateUser = USER_HELPER.createUser(user);
-        Response loginResponse = USER_HELPER.loginUser(email, password);
+        Response loginResponse = USER_HELPER.loginUser(user.getEmail(), user.getPassword());
         String accessToken = USER_HELPER.getUserAccessToken(loginResponse);
 
         // Определяем ингредиенты для заказа - неверные хеши
